@@ -193,5 +193,6 @@ cython_debug/
 .cursorignore
 .cursorindexingignore
 
-# 참고 데이터 csv
-Global_Cybersecurity_Threats_2015-2024.csv
+# 분석 데이터 관련 자료
+*.csv
+visualization
