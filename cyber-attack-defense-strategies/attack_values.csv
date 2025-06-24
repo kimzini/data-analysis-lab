@@ -1,0 +1,8 @@
+Attack Type,Attack Source,Target Industry,Security Vulnerability Type,Defense Mechanism Used
+DDoS,Hacker Group,Banking,Social Engineering,AI-based Detection
+Malware,Insider,Education,Unpatched Software,Antivirus
+Man-in-the-Middle,Nation-state,Government,Weak Passwords,Encryption
+Phishing,Unknown,Healthcare,Zero-day,Firewall
+Ransomware,,IT,,VPN
+SQL Injection,,Retail,,
+,,Telecommunications,,
