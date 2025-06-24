@@ -13,7 +13,6 @@ output_path = os.path.join(os.path.dirname(file_path), output_file)
 
 columns_to_extract = [
     "Attack Type",
-    "Attack Source",
     "Target Industry",
     "Security Vulnerability Type",
     "Defense Mechanism Used"
