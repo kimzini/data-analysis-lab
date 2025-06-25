@@ -16,12 +16,12 @@ df_subset = df[[
 
 df_subset.columns = ["Loss", "Users", "Time"]
 
-# minmax 정규화
-df_subset["Loss_scaling"] = ((df_subset["Loss"] - df_subset["Loss"].min()) / (df_subset["Loss"].max() - df_subset["Loss"].min())).round(3)
-df_subset["Users_scaling"] = ((df_subset["Users"] - df_subset["Users"].min()) / (df_subset["Users"].max() - df_subset["Users"].min())).round(3)
+# minmax 정규화 -> 최소값 0으로 설정
+df_subset["Loss_scaling"] = (df_subset["Loss"] / df_subset["Loss"].max()).round(4)
+df_subset["Users_scaling"] = (df_subset["Users"] / df_subset["Users"].max()).round(4)
 
-# 피해 점수 컬럼 추가
-df["Damage Score"] = ((df_subset["Loss_scaling"] * 0.5 + df_subset["Users_scaling"] * 0.5) / df_subset["Time"]).round(3)
+# 피해 수치 컬럼 추가
+df["Damage Scale"] = ((df_subset["Loss_scaling"] * 0.5 + df_subset["Users_scaling"] * 0.5) / df_subset["Time"]).round(3)
 
 df.drop(columns=[
     "Financial Loss (in Million $)",
@@ -29,5 +29,5 @@ df.drop(columns=[
     "Incident Resolution Time (in Hours)"
 ], inplace=True)
 
-output_path = os.path.join(os.path.dirname(file_path), "main_data_with_damage_scores.csv")
+output_path = os.path.join(os.path.dirname(file_path), "main_data_with_damage_scales.csv")
 df.to_csv(output_path, index=False)

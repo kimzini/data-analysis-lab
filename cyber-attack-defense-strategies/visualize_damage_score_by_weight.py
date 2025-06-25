@@ -25,8 +25,8 @@ df = df[[
 
 df.columns = ["Loss", "Users", "Time"]
 
-df["Loss_scaling"] = ((df["Loss"] - df["Loss"].min()) / (df["Loss"].max() - df["Loss"].min())).round(3)
-df["Users_scaling"] = ((df["Users"] - df["Users"].min()) / (df["Users"].max() - df["Users"].min())).round(3)
+df["Loss_scaling"] = (df["Loss"] / df["Loss"].max()).round(4)
+df["Users_scaling"] = (df["Users"] / df["Users"].max()).round(4)
 
 # 각 컬럼별 가중치 다르게 넣어서 비교
 df["Damage1"] = ((df["Loss_scaling"] * 0.7 + df["Users_scaling"] * 0.3) / df["Time"]).round(4)  # 재정적 피해 0.7
