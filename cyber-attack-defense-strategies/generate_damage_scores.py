@@ -29,5 +29,9 @@ df.drop(columns=[
     "Incident Resolution Time (in Hours)"
 ], inplace=True)
 
+df_sorted = df.sort_values(
+    by=["Target Industry", "Attack Type", "Security Vulnerability Type", "Defense Mechanism Used"]
+).reset_index(drop=True)
+
 output_path = os.path.join(os.path.dirname(file_path), "main_data_with_damage_scales.csv")
-df.to_csv(output_path, index=False)
+df_sorted.to_csv(output_path, index=False)
