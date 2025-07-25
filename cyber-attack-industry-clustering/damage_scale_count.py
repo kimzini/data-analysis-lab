@@ -1,11 +1,9 @@
-import numpy as np
 import pandas as pd
 import os
 from dotenv import load_dotenv
 import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib as mpl
-import seaborn as sns
 
 matplotlib.use("TkAgg")
 mpl.rcParams['font.family'] = 'AppleGothic'
@@ -17,23 +15,28 @@ file_path = os.getenv("CSV_FILE_PATH2")
 
 df = pd.read_csv(file_path)
 
-bins = [round(x, 1) for x in np.arange(0, 1.1, 0.1)]
-labels = [f"{bins[i]} ~ {bins[i+1]}" for i in range(len(bins)-1)]
+# 피해 구간별 공격 건수
+bins = [0.0, 0.01, 0.02, 0.1, 0.4, 1.0]
+labels = ["0~0.01", "0.01~0.02", "0.02~0.1", "0.1~0.4", "0.4~1.0"]
 
-df["Damage Scale"] = pd.cut(df["Damage Scale"], bins=bins, labels=labels, include_lowest=True, right=False)
+df["Damage Range"] = pd.cut(df["Damage Scale"], bins=bins, labels=labels, include_lowest=True, right=False)
 
-damage_bin_counts = df["Damage Scale"].value_counts().sort_index()
+damage_range_counts = df["Damage Range"].value_counts().sort_index()
 
-print("피해 규모 범위별 빈도 수")
-print(damage_bin_counts)
+plt.figure(figsize=(14, 10))
+plt.plot(damage_range_counts.index, damage_range_counts.values, marker='o', linestyle='-')
 
-plt.figure(figsize=(10, 6))
-sns.barplot(x=damage_bin_counts.index, y=damage_bin_counts.values, palette="Blues_d")
+for i, (label, count) in enumerate(damage_range_counts.items()):
+    plt.text(i, count + 80, str(count), ha='center', va='bottom', fontsize=24)
 
-plt.title("Damage Scale 구간별 빈도 수", fontsize=14)
-plt.xlabel("Damage Scale 구간", fontsize=12)
-plt.ylabel("건수", fontsize=12)
-plt.xticks(rotation=45)
-plt.grid(axis="y", linestyle="--", alpha=0.5)
+plt.title("Damage Scale 구간별 건수", fontsize=45, pad=30)
+plt.xlabel("피해 규모 범위", fontsize=36)
+plt.ylabel("건수", fontsize=36)
+plt.gca().xaxis.labelpad = 20
+plt.gca().yaxis.labelpad = 20
+plt.xticks(fontsize=30)
+plt.yticks(fontsize=30)
+plt.ylim(0, 1200)
+plt.grid(True, linestyle='--', alpha=0.6)
 plt.tight_layout()
 plt.show()
