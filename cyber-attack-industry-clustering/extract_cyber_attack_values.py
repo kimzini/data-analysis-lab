@@ -1,5 +1,4 @@
-# 공격 유형, 산업, 보안 취약점, 방어 메커니즘 중복 제거 고유 값 추출
-
+# 공격 유형, 보안 취약점, 방어 메커니즘 중복 제거 고유 값 추출
 import pandas as pd
 import os
 from dotenv import load_dotenv
@@ -13,7 +12,6 @@ output_path = os.path.join(os.path.dirname(file_path), output_file)
 
 columns_to_extract = [
     "Attack Type",
-    "Target Industry",
     "Security Vulnerability Type",
     "Defense Mechanism Used"
 ]
